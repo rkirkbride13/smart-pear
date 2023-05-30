@@ -2,7 +2,7 @@ require_relative './lib/authorizer'
 require_relative './lib/extracter'
 require_relative './lib/transformer'
 
-class Executor
+class ScriptRunner
   def initialize(sheet_id, download_name)
     @sheet_id = sheet_id
     @download_name = download_name
@@ -35,4 +35,4 @@ class Executor
 
 end
 
-execute = Executor.new('1JbGMS3p5dzHrOdGptBPzm9aZhpHiVNVt', 'central_products_list.xlsm').run
+ScriptRunner.new('1JbGMS3p5dzHrOdGptBPzm9aZhpHiVNVt', 'central_products_list.xlsm').run
