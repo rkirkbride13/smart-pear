@@ -13,7 +13,7 @@ describe FileDownloader do
       user_id = 'default'
       oauth_base_url = 'urn:ietf:wg:oauth:2.0:oob'
 
-      allow(auth).to receive(:get_API_credentials).and_return(credentials)
+      allow(auth).to receive(:get_api_credentials).and_return(credentials)
       allow(auth).to receive(:sheet_id).and_return(sheet_id)
       
       extracter = FileDownloader.new(auth, user_id, oauth_base_url)

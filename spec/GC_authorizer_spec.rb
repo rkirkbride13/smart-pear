@@ -2,7 +2,7 @@ require 'rspec'
 require 'google/apis/drive_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
-require 'GC_authorizer'
+require 'gc_authorizer'
 
 RSpec.describe GoogleCloudAuthorizer do
   before(:each) do
@@ -51,7 +51,7 @@ RSpec.describe GoogleCloudAuthorizer do
         allow(@authorizer).to receive(:get_and_store_credentials_from_code).and_return(instance_double('Google::Auth::Credentials'))
         allow_any_instance_of(Object).to receive(:gets).and_return('test_input')
 
-        expect { @auth.get_API_credentials(@user_id, @oauth_base_url) }.to output(/Open the following URL in your browser and authorize the application/).to_stdout
+        expect { @auth.get_api_credentials(@user_id, @oauth_base_url) }.to output(/Open the following URL in your browser and authorize the application/).to_stdout
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.describe GoogleCloudAuthorizer do
         @auth.create_authorizer(@token_path)
         existing_credentials = instance_double('Google::Auth::Credentials')
         allow(@authorizer).to receive(:get_credentials).with(@user_id).and_return(existing_credentials)
-        expect(@auth.get_API_credentials(@user_id, @oauth_base_url)).to eq(existing_credentials)
+        expect(@auth.get_api_credentials(@user_id, @oauth_base_url)).to eq(existing_credentials)
       end
     end
     

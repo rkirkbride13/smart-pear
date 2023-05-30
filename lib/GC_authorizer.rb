@@ -21,7 +21,7 @@ class GoogleCloudAuthorizer
     @authorizer = Google::Auth::UserAuthorizer.new(client_id, @scope, token_store)
   end
 
-  def get_API_credentials(user_id, oauth_base_url)
+  def get_api_credentials(user_id, oauth_base_url)
     # Get the credentials or authorize if none exist
     credentials = @authorizer.get_credentials(user_id)
     if credentials.nil?

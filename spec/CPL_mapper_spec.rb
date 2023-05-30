@@ -1,6 +1,6 @@
 require 'rspec'
 require 'roo'
-require 'CPL_mapper'
+require 'cpl_mapper'
 
 RSpec.describe CPLMapper do
   before(:each) do

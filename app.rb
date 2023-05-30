@@ -1,6 +1,6 @@
-require_relative './lib/GC_authorizer'
+require_relative './lib/gc_authorizer'
 require_relative './lib/file_downloader'
-require_relative './lib/CPL_mapper'
+require_relative './lib/cpl_mapper'
 
 class ScriptRunner
   def initialize(
@@ -25,7 +25,7 @@ class ScriptRunner
 
   def run
     @auth = GoogleCloudAuthorizer.new(@credentials_path, @sheet_id)
-    authorize_API
+    authorize_api
     @download_file = FileDownloader.new(@auth, @user_id, @oauth_base_url)
     download_sheet
     @map_data = CPLMapper.new
@@ -34,9 +34,9 @@ class ScriptRunner
 
   private
 
-  def authorize_API
+  def authorize_api
     @auth.create_authorizer(@token_path)
-    @auth.get_API_credentials(@user_id, @oauth_base_url)
+    @auth.get_api_credentials(@user_id, @oauth_base_url)
   end
 
   def download_sheet
