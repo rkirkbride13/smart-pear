@@ -40,15 +40,25 @@ RSpec.describe APIAuthorizer do
       allow(Google::Auth::UserAuthorizer).to receive(:new).with(client_id, @auth.instance_variable_get(:@scope), token_store).and_return(@authorizer)
     end
 
-    
-    it 'prompts for authorization and returns new credentials' do
-      @auth.create_authorizer
-      allow(@authorizer).to receive(:get_credentials).and_return(nil)
-      allow(@authorizer).to receive(:get_authorization_url).and_return('http://authorization.url')
-      allow(@authorizer).to receive(:get_and_store_credentials_from_code).and_return(instance_double('Google::Auth::Credentials'))
-      allow_any_instance_of(Object).to receive(:gets).and_return('test_input')
+    context 'when credentials do not exist' do
+      it 'prompts for authorization and returns new credentials' do
+        @auth.create_authorizer
+        allow(@authorizer).to receive(:get_credentials).and_return(nil)
+        allow(@authorizer).to receive(:get_authorization_url).and_return('http://authorization.url')
+        allow(@authorizer).to receive(:get_and_store_credentials_from_code).and_return(instance_double('Google::Auth::Credentials'))
+        allow_any_instance_of(Object).to receive(:gets).and_return('test_input')
 
-      expect { @auth.get_API_credentials }.to output(/Open the following URL in your browser and authorize the application/).to_stdout
+        expect { @auth.get_API_credentials }.to output(/Open the following URL in your browser and authorize the application/).to_stdout
+      end
+    end
+
+    context 'when credentials exist' do
+      it 'returns credentials without prompting for authorization' do
+        @auth.create_authorizer
+        existing_credentials = instance_double('Google::Auth::Credentials')
+        allow(@authorizer).to receive(:get_credentials).and_return(existing_credentials)
+        expect(@auth.get_API_credentials).to eq(existing_credentials)
+      end
     end
     
   end
