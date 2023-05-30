@@ -1,6 +1,6 @@
 # Smart Pear tech test
 
-This is my attempt at a tech test for Kraken Smart Pear. It was written using Ruby and test-driven with the RSpec framework
+This is my attempt at a tech test for Kraken Smart Pear. It was written using Ruby and test-driven with the RSpec framework.
 
 ## Specification
 
@@ -29,6 +29,13 @@ I initially set out to use the Google Sheets API to extract the data directly fr
 Therefore, I decided to instead extract the sheet using the Google Drive API and save it locally. From there I was able to much more easily start transforming the data. I settled on the Roo gem to transform the data in the desired worksheet into the required nested hash as it is better for .xlsm files than the Spreadsheet gem. Furthermore, I only needed to read the file which is the default for Roo.
 
 I used a test-driven approach, starting with the APIAuthorizer class, then the Extractor and finally the Transformer.
+
+### Future goals
+
+Had I had more time I would've also implemented:
+
+- Supplementary error handling
+- A UserInterface class to allow the script to run with input from the command line.
 
 ## Setup
 
