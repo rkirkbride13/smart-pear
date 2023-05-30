@@ -21,3 +21,33 @@ Using a ruby script only, turn the data in the last worksheet of the attached wo
 The data from all rows in the worksheet must be included in the Hash, except those marked "Removed" in column C, which must be excluded.
 
 Add comments to explain your solution and why you believe it is optimal
+
+### Approach
+
+I initially attempted to use the Google Sheets API to extract the data directly from the spreadsheet before transforming it. Having setup my OAuth 2.0 Client IDs on Google Cloud, I realised that I would need a different solution as the spreadsheet was saved as .xlsm and not as a Google Sheet, which limited the application of the Google Sheets API.
+
+Therefore, I decided to instead extract the sheet using the Google Drive API and save it locally. From there I settled on the Roo gem to transform the data in the desired worksheet into the required nested hash.
+
+I used a test-driven approach, starting with the APIAuthorizer class, then the Extractor and finally the Transformer.
+
+## Setup
+
+### OAuth 2.0 Credentials
+
+For security reasons I have not included my OAuth 2.0 credentials in this package. Before running this script, the user will need to setup their own OAuth 2.0 Client ID on Google Cloud (see [help page](https://support.google.com/googleapi/answer/6158849?hl=en) if needed).
+
+### To run this code locally:
+
+    $ git clone git@github.com:[USERNAME]/smart-pear.git
+    $ gem install bundler
+    $ bundle install
+    $ ruby app.rb
+
+**Important:** Ensure you update the variables sheet_id and download_name in `app.rb` to suite your specific needs
+
+### To run the test suite
+
+    $ git clone git@github.com:[USERNAME]/smart-pear.git
+    $ gem install bundler
+    $ bundle install
+    $ rspec
