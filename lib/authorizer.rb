@@ -1,6 +1,7 @@
 require 'google/apis/drive_v3'
 
 class APIAuthorizer
+  attr_reader :sheet_id
 
   def initialize(credentials_path, sheet_id)
     # Path to the credentials JSON file obtained from the Google Cloud Console
