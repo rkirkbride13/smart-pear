@@ -41,7 +41,7 @@ Had I had more time I would've also implemented:
 
 ### OAuth 2.0 Credentials
 
-For security reasons I have not included my OAuth 2.0 credentials in this package. Before running this script, the user will need to setup their own OAuth 2.0 Client ID on Google Cloud (see [help page](https://support.google.com/googleapi/answer/6158849?hl=en) if needed).
+For security reasons I have not included my OAuth 2.0 credentials in this package. Before running this script, the user will need to setup their own OAuth 2.0 Client ID on Google Cloud (see [help page](https://support.google.com/googleapi/answer/6158849?hl=en) if needed). Then these credentials can be downloaded and saved locally. Ensure that any file paths are updated according to the users needs.
 
 ### To run this code locally:
 

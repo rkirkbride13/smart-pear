@@ -41,7 +41,7 @@ RSpec.describe CPLMapper do
       expected_content = "nested_hash = #{@transformer.instance_variable_get(:@nested_hash).inspect}\n"
 
       expect(file_content).to eq(expected_content)
-      expect { @transformer.save_nested_hash_to_file(@output_path) }.to output("Nested hash saved as 'nested_hash.rb'\n").to_stdout
+      expect { @transformer.save_nested_hash_to_file(@output_path) }.to output("Nested hash saved as '/Users/robbiekirkbride/Desktop/Projects/job-apps/smart-pear/spec/mock_nested_hash.rb'\n").to_stdout
     end
   end
 end

@@ -25,7 +25,7 @@ class CPLMapper
     File.open(file_path, 'w') do |file|
       file.puts file_content
     end
-    puts "Nested hash saved as 'nested_hash.rb'"
+    puts "Nested hash saved as '#{file_path}'"
   end
 
   private
