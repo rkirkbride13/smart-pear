@@ -1,0 +1,1 @@
+nested_hash = {"Communications Hub"=>{"106C"=>{"433100AC"=>[{:firmware_version=>"124074DA", :smets_chts_version=>"CHTS V1.0 ", :gbcs_version=>"GBCS Version 1.0 ", :image_hash=>"137ED5BC81A21F6D2187BC380381AEA7705BF65D3E4DAEA28EFD44113079D5E9"}]}}}
