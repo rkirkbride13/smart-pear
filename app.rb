@@ -3,36 +3,69 @@ require_relative './lib/file_downloader'
 require_relative './lib/CPL_mapper'
 
 class ScriptRunner
-  def initialize(sheet_id, download_name)
+  def initialize(
+    credentials_path, 
+    sheet_id, 
+    token_path, 
+    user_id, 
+    oauth_base_url, 
+    download_name, 
+    download_path, 
+    hash_path)
+
+    @credentials_path = credentials_path
     @sheet_id = sheet_id
+    @user_id = user_id
+    @token_path = token_path
+    @oauth_base_url = oauth_base_url
     @download_name = download_name
+    @download_path = download_path
+    @hash_path = hash_path
   end
 
   def run
+    @auth = GoogleCloudAuthorizer.new(@credentials_path, @sheet_id)
     authorize_API
-    extract_sheet
-    transform_data
+    @download_file = FileDownloader.new(@auth, @user_id, @oauth_base_url)
+    download_sheet
+    @map_data = CPLMapper.new
+    map_sheet_data
   end
 
   private
 
   def authorize_API
-    @auth = GoogleCloudAuthorizer.new('./config/client_secret.json', @sheet_id)
-    @auth.create_authorizer
-    @auth.get_API_credentials
+    @auth.create_authorizer(@token_path)
+    @auth.get_API_credentials(@user_id, @oauth_base_url)
   end
 
-  def extract_sheet
-    extract = FileDownloader.new(@auth)
-    extract.save_sheet_locally(@download_name)
+  def download_sheet
+    @download_file.save_sheet_locally(@download_name, @download_path)
   end
 
-  def transform_data
-    transform = CPLMapper.new
-    transform.map_to_nested_hash("./files/#{@download_name}")
-    transform.save_nested_hash_to_file('./files/nested_hash.rb')
+  def map_sheet_data
+    @map_data.map_to_nested_hash(@download_path)
+    @map_data.save_nested_hash_to_file(@hash_path)
   end
 
 end
 
-ScriptRunner.new('1JbGMS3p5dzHrOdGptBPzm9aZhpHiVNVt', 'central_products_list.xlsm').run
+credentials_path = './config/client_secret.json'
+sheet_id = '1JbGMS3p5dzHrOdGptBPzm9aZhpHiVNVt'
+token_path = './config/token.json'
+user_id = 'default'
+oauth_base_url = 'urn:ietf:wg:oauth:2.0:oob'
+download_name = 'central_products_list.xlsm'
+download_path = "./files/#{download_name}"
+hash_path = './files/nested_hash.rb'
+
+ScriptRunner.new(
+  credentials_path, 
+  sheet_id, 
+  token_path, 
+  user_id, 
+  oauth_base_url, 
+  download_name, 
+  download_path, 
+  hash_path
+).run
