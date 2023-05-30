@@ -43,4 +43,12 @@ class Transformer
     return @nested_hash
   end
 
+  def save_nested_hash_to_file(file_path)
+    # Save the nested hash into a Ruby file
+    file_content = "nested_hash = #{@nested_hash.inspect}"
+    File.open(file_path, 'w') do |file|
+      file.puts file_content
+    end
+    puts "Nested hash saved as 'nested_hash.rb'"
+  end
 end
