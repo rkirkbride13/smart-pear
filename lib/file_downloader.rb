@@ -1,6 +1,6 @@
 require 'google/apis/drive_v3'
 
-class Extracter
+class FileDownloader
   def initialize(authorizeAPI)
     @credentials = authorizeAPI.get_API_credentials
     @sheet_id = authorizeAPI.sheet_id

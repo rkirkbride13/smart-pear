@@ -2,13 +2,13 @@ require 'rspec'
 require 'google/apis/drive_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
-require 'authorizer'
+require 'GC_authorizer'
 
-RSpec.describe APIAuthorizer do
+RSpec.describe GoogleCloudAuthorizer do
   before(:each) do
     @credentials_path = './config/client_secret.json'
     @sheet_id = '12345'
-    @auth = APIAuthorizer.new(@credentials_path, '12345')
+    @auth = GoogleCloudAuthorizer.new(@credentials_path, '12345')
   end
 
   describe '#when initialized' do

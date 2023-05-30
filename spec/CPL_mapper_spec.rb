@@ -1,16 +1,16 @@
 require 'rspec'
 require 'roo'
-require 'transformer'
+require 'CPL_mapper'
 
-RSpec.describe Transformer do
+RSpec.describe CPLMapper do
   before(:each) do
     @file_path = File.join(__dir__, 'mock_sheet.xlsm')
-    @transformer = Transformer.new(@file_path)
+    @transformer = CPLMapper.new
   end
 
-  describe '#transform_excel_spreadsheet' do
+  describe '#map_to_nested_hash' do
     it 'transforms the spreadsheet into a nested hash' do
-      transformed_data = @transformer.transform_excel_spreadsheet
+      transformed_data = @transformer.map_to_nested_hash(@file_path)
       mock_hash = {
         "Communications Hub" => {
           "106C" => {
@@ -27,7 +27,7 @@ RSpec.describe Transformer do
 
   describe '#save_nested_hash_to_file' do
     before do
-      @transformer.transform_excel_spreadsheet
+      @transformer.map_to_nested_hash(@file_path)
       @output_path = File.join(__dir__, 'mock_nested_hash.rb')
       @transformer.save_nested_hash_to_file(@output_path)
     end

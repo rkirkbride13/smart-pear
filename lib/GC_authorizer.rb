@@ -2,7 +2,7 @@ require 'google/apis/drive_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 
-class APIAuthorizer
+class GoogleCloudAuthorizer
   attr_reader :sheet_id
 
   def initialize(credentials_path, sheet_id)

@@ -1,6 +1,6 @@
-require_relative './lib/authorizer'
-require_relative './lib/extracter'
-require_relative './lib/transformer'
+require_relative './lib/GC_authorizer'
+require_relative './lib/file_downloader'
+require_relative './lib/CPL_mapper'
 
 class ScriptRunner
   def initialize(sheet_id, download_name)
@@ -17,19 +17,19 @@ class ScriptRunner
   private
 
   def authorize_API
-    @auth = APIAuthorizer.new('./config/client_secret.json', @sheet_id)
+    @auth = GoogleCloudAuthorizer.new('./config/client_secret.json', @sheet_id)
     @auth.create_authorizer
     @auth.get_API_credentials
   end
 
   def extract_sheet
-    extract = Extracter.new(@auth)
+    extract = FileDownloader.new(@auth)
     extract.save_sheet_locally(@download_name)
   end
 
   def transform_data
-    transform = Transformer.new("./files/#{@download_name}")
-    transform.transform_excel_spreadsheet
+    transform = CPLMapper.new
+    transform.map_to_nested_hash("./files/#{@download_name}")
     transform.save_nested_hash_to_file('./files/nested_hash.rb')
   end
 

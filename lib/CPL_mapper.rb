@@ -1,14 +1,13 @@
 require 'roo'
 
-class Transformer
-  def initialize(file_path)
+class CPLMapper
+  def initialize
     @nested_hash = {}
-    @file_path = file_path
   end
 
-  def transform_excel_spreadsheet
+  def map_to_nested_hash(file_path)
     # Isolate the last sheet in the workbook
-    workbook = Roo::Spreadsheet.open(@file_path)
+    workbook = Roo::Spreadsheet.open(file_path)
     worksheet = workbook.sheet(workbook.sheets.last)
     # Iterate over rows to create the nested hash
     (2..worksheet.last_row).each do |row_index|
