@@ -24,9 +24,9 @@ Add comments to explain your solution and why you believe it is optimal
 
 ### Approach
 
-I initially attempted to use the Google Sheets API to extract the data directly from the spreadsheet before transforming it. Having setup my OAuth 2.0 Client IDs on Google Cloud, I realised that I would need a different solution as the spreadsheet was saved as .xlsm and not as a Google Sheet, which limited the application of the Google Sheets API.
+I initially set out to use the Google Sheets API to extract the data directly from the spreadsheet before transforming it as required. Having setup my OAuth 2.0 Client IDs on Google Cloud, I realised that I would need a different solution as the spreadsheet was saved as .xlsm and not as a Google Sheet, which limited the application of the Google Sheets API.
 
-Therefore, I decided to instead extract the sheet using the Google Drive API and save it locally. From there I settled on the Roo gem to transform the data in the desired worksheet into the required nested hash.
+Therefore, I decided to instead extract the sheet using the Google Drive API and save it locally. From there I was able to much more easily start transforming the data. I settled on the Roo gem to transform the data in the desired worksheet into the required nested hash as it is better for .xlsm files than the Spreadsheet gem. Furthermore, I only needed to read the file which is the default for Roo.
 
 I used a test-driven approach, starting with the APIAuthorizer class, then the Extractor and finally the Transformer.
 

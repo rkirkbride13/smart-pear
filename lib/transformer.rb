@@ -46,7 +46,9 @@ class Transformer
     @nested_hash[device_type][manufacturer_identifier][model_identifier] ||= []
 
     # Create hash for each firmware version
-    firmware_hash = create_firmware_hash(firmware_version, smets_chts_version, gbcs_version, image_hash)
+    firmware_hash = create_firmware_hash(
+      firmware_version, smets_chts_version, gbcs_version, image_hash
+    )
 
     # Append firmware hash to the innermost level array
     @nested_hash[device_type][manufacturer_identifier][model_identifier] << firmware_hash

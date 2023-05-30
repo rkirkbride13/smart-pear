@@ -7,3 +7,4 @@ source "https://rubygems.org"
 gem 'rspec'
 gem 'googleauth'
 gem 'google_drive'
+gem 'rubocop', '~> 1.51'
