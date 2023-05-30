@@ -21,4 +21,12 @@ class APIAuthorizer
     @authorizer = Google::Auth::UserAuthorizer.new(client_id, @scope, token_store)
   end
 
+  def get_API_credentials
+    url = @authorizer.get_authorization_url(base_url: 'urn:ietf:wg:oauth:2.0:oob')
+    puts "Open the following URL in your browser and authorize the application:\n\n#{url}\n\n"
+    print 'Enter the authorization code: '
+    code = gets.chomp
+    credentials = @authorizer.get_and_store_credentials_from_code(user_id: 'default', code: code, base_url: 'urn:ietf:wg:oauth:2.0:oob')
+  end 
+
 end
